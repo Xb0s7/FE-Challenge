@@ -1,10 +1,10 @@
 import React from 'react';
+import 'bootstrap';
+import Navigation from './utils/navigation';
 
 function App() {
   return (
-    <div className="App">
-      
-    </div>
+    <Navigation/>
   );
 }
 
