@@ -1,10 +1,12 @@
 import React from 'react';
-import NavBar from '../../components/navBar/navBar';
+import Wrapper from '../../components/wrapper/wrapper';
 
 const Users = () => {
     return (
         <div>
-            <NavBar></NavBar>
+           <Wrapper>
+               
+           </Wrapper>
         </div>
     )
 }

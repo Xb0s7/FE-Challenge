@@ -8,7 +8,7 @@ const Wrapper = (props) => {
     <div className='d-flex  h-100 w-100  flex-column align-items-center'>
         <NavBar />
         {props.children}
-       <Footer/>
+        <Footer/>
     </div>
     )
 }

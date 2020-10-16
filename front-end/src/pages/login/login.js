@@ -17,7 +17,7 @@ const Login = (props) => {
             const user = users.find(user => user.email === email);
           
 
-            if (user && user.password == password) {
+            if (user && user.password === password) {
                 console.log(user);
                 logIn(user);
                 document.cookie = `Authenticated=${user.email}`;
@@ -32,7 +32,7 @@ const Login = (props) => {
     return (
 
         <Wrapper>
-            <div className='d-flex  h-100 w-100  flex-row align-items-center justify-content-center text-dark'>
+            <div className='d-flex  vh-100 w-100  flex-row align-items-center justify-content-center text-dark'>
                 <form onSubmit={handleSubmit} className='w-25 rounded d-flex bg-light flex-column justify-content-center align-items-center p-5'>
                     <div className="form-group text-center w-100">
                         <label hmtlfor="exampleInputEmail1">Email address</label>
