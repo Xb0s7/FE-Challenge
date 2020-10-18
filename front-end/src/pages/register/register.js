@@ -9,6 +9,7 @@ const Register = (props) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [imgUrl, setImgUrl] = useState('');
+    const [preferedCategory, setCategory] = useState('All')
     
 
     const handleSubmit = async (e) => {
@@ -22,7 +23,8 @@ const Register = (props) => {
                     password,
                     firstName,
                     lastName,
-                    imgUrl    
+                    imgUrl,
+                    preferedCategory    
                 }),
                 headers: {
                     'Content-Type':'application/json'
