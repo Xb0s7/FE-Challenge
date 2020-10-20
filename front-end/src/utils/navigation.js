@@ -1,5 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import ProtectedRoute from '../components/protectedRoute/protectedRoute';
+import CreatePost from '../pages/createPost/createPost';
 import Home from '../pages/home/home';
 import Login from '../pages/login/login';
 import Posts from '../pages/posts/posts';
@@ -11,10 +13,11 @@ const Navigation = () => {
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={Home}/>
-                <Route exact path="/users" component={Users}/>
+                <ProtectedRoute exact path="/users" component={Users}/>
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/register" component={Register}/>
-                <Route exact path="/posts" component={Posts}/>
+                <ProtectedRoute path="/posts" component={Posts}/>
+                <ProtectedRoute path="/createpost" component={CreatePost}/>
             </Switch>
         </BrowserRouter>
     )

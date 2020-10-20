@@ -6,7 +6,6 @@ const UserProvider = (props) => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
     
-
     const logIn = (user) => {
         setLoggedIn(true);
         setUser(user);
@@ -17,8 +16,6 @@ const UserProvider = (props) => {
         setUser(null);
         document.cookie = "Authenticated=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
-
-    
 
     return(
         <UserContext.Provider value = {{
