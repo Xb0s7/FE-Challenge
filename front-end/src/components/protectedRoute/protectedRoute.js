@@ -6,7 +6,7 @@ const ProtectedRoute = ({component}) => {
     const isAuthenticated = document.cookie;
     
     return isAuthenticated ? (
-        <Component/>
+        <Component />
     ) : (
         <Redirect to={{ pathname: '/login'}}/>
     )

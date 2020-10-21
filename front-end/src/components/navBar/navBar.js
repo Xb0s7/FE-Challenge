@@ -11,7 +11,7 @@ const NavBar = () => {
 
     const loginButton = loggedIn ? 
     <li className="nav-item">
-        <Link className = "nav-link justify-content-end text-dark" onClick={logOut}>Logout</Link>
+        <Link className = "nav-link justify-content-end text-dark" onClick={logOut} to="/">Logout</Link>
     </li>
      : <NavButton title="Login" href="/login"/>
 

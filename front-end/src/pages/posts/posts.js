@@ -10,7 +10,7 @@ import SearchBar from '../../components/search/search';
 const Posts = () => {
     const [postsToRender, setPostsToRender] = useState([]);
     const [filter, setFilter] = useState('');
-    const [allPosts, setAllPosts] = useState([]);
+    const [allPosts] = useState([]);
     const [postsToMap, setPostsToMap] = useState([]);
     const [isOrdered, setOrdered] = useState(false);
 
@@ -28,9 +28,9 @@ const Posts = () => {
         const allPosts = posts.map(post => {
             return <Post key={post.id} {...post} />
         })
-        if (user.preferedCategory != 'All') {
+        if (user.preferedCategory !== 'All') {
 
-            const postsToMap = posts.filter(post => post.category == user.preferedCategory);
+            const postsToMap = posts.filter(post => post.category === user.preferedCategory);
             setPostsToMap(postsToMap);
             setPageCount(Math.ceil(postsToMap.length / perPage));
             const postsToSlice = await postsToMap.map(post => {
@@ -111,10 +111,10 @@ const Posts = () => {
             case 'All':
                 return setPostsToRender(allPosts);
             case 'Cars':
-                const carPosts = allPosts.filter(post => post.props.category == 'Cars')
+                const carPosts = allPosts.filter(post => post.props.category === 'Cars')
                 return setPostsToRender(carPosts);
             case 'Life':
-                const lifePosts = allPosts.filter(post => post.props.category == 'Life')
+                const lifePosts = allPosts.filter(post => post.props.category === 'Life')
                 return setPostsToRender(lifePosts);
             default:
                 break;
