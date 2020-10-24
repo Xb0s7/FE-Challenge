@@ -9,14 +9,18 @@ const Register = (props) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [imgUrl, setImgUrl] = useState('');
-    const [preferedCategory] = useState('All')
+    const [preferedPostsCategory] = useState('All');
+    const [preferedUsersCategory] = useState('All');
+    const [postedIn] = useState([]);
+    const [titles] = useState([]);
+    
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const promise = await fetch('http://localhost:3000/users', {
+            const promise = await fetch('http://localhost:4000/users', {
                 method: 'POST',
                 body: JSON.stringify({
                     email,
@@ -24,7 +28,10 @@ const Register = (props) => {
                     firstName,
                     lastName,
                     imgUrl,
-                    preferedCategory
+                    preferedPostsCategory,
+                    preferedUsersCategory,
+                    postedIn,
+                    titles
                 }),
                 headers: {
                     'Content-Type': 'application/json'

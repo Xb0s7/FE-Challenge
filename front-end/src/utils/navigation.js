@@ -13,7 +13,7 @@ const Navigation = () => {
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={Home}/>
-                <ProtectedRoute exact path="/users" component={Users}/>
+                <Route exact path="/users" component={Users}/>
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/register" component={Register}/>
                 <ProtectedRoute path="/posts" component={Posts}/>

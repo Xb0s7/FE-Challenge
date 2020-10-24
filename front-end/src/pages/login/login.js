@@ -12,7 +12,7 @@ const Login = (props) => {
         e.preventDefault()
 
         try {
-            const promise = await fetch('http://localhost:3000/users');
+            const promise = await fetch('http://localhost:4000/users');
             const users = await promise.json();
             const user = users.find(user => user.email === email);
           

@@ -5,6 +5,7 @@ import UserContext from '../../utils/context';
 import ReactPaginate from 'react-paginate';
 import styles from '../posts/posts.module.css';
 import SearchBar from '../../components/search/search';
+import CategoryMenu from '../../components/categoryMenu/categoryMenu';
 
 
 const Posts = () => {
@@ -19,18 +20,20 @@ const Posts = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [pageCount, setPageCount] = useState(0);
 
-    const { user, loggedIn } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const getPostsToRender = async () => {
 
-        const promise = await fetch('http://localhost:3000/posts');
+        const promise = await fetch('http://localhost:4000/posts');
         const posts = await promise.json();
+        console.log(posts)
         const allPosts = posts.map(post => {
             return <Post key={post.id} {...post} />
         })
-        if (user.preferedCategory !== 'All') {
+        console.log(allPosts);
+        if (user.preferedPostsCategory !== 'All') {
 
-            const postsToMap = posts.filter(post => post.category === user.preferedCategory);
+            const postsToMap = posts.filter(post => post.category === user.preferedPostsCategory);
             setPostsToMap(postsToMap);
             setPageCount(Math.ceil(postsToMap.length / perPage));
             const postsToSlice = await postsToMap.map(post => {
@@ -62,7 +65,6 @@ const Posts = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-
         const newPosts = postsToMap.filter(post => post.title.toLowerCase().includes(filter.toLowerCase()))
         const newPostsToRender = newPosts.map(post => {
             return <Post key={post.id} {...post} />
@@ -93,11 +95,11 @@ const Posts = () => {
         }
     }
     const updateCategory = async (category) => {
-        user.preferedCategory = category;
-        const promise = await fetch(`http://localhost:3000/users/${user.id}`, {
+        user.preferedPostsCategory = category;
+        const promise = await fetch(`http://localhost:4000/users/${user.id}`, {
             method: 'PATCH',
             body: JSON.stringify({
-                preferedCategory: category
+                preferedPostsCategory: category
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -112,6 +114,7 @@ const Posts = () => {
                 return setPostsToRender(allPosts);
             case 'Cars':
                 const carPosts = allPosts.filter(post => post.props.category === 'Cars')
+                console.log(allPosts)
                 return setPostsToRender(carPosts);
             case 'Life':
                 const lifePosts = allPosts.filter(post => post.props.category === 'Life')
@@ -125,22 +128,11 @@ const Posts = () => {
         getPostsToRender();
     }, [])
 
-    const menu = loggedIn ?
-        <div className="dropdown w-25 p-3 d-flex justify-content-start">
-            <button className="btn btn-secondary dropdown-toggle w-75" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Categories
-            </button>
-            <div className="dropdown-menu w-75" aria-labelledby="dropdownMenu2">
-                <button className="dropdown-item" type="button" onClick={(e) => { categorize('All') }}>All</button>
-                <button className="dropdown-item" type="button" onClick={(e) => { categorize('Cars') }}>Cars</button>
-                <button className="dropdown-item" type="button" onClick={(e) => { categorize('Life') }}>Life</button>
-            </div>
-        </div> : <div className=" w-25"></div>
 
     return (
         <Wrapper>
             <div className="d-flex flex-row justify-content-center align-items-start w-100">
-                {menu}
+                <CategoryMenu categorize={categorize}/>
                 <div className="d-flex flex-column w-100 ">
                     <div className="d-flex flex-row w-100 align-items-center justify-content-end pr-3">
                         <SearchBar submit={onSubmit} change={onChange}></SearchBar>
