@@ -2,33 +2,19 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Wrapper from '../../components/wrapper/wrapper';
 import UserContext from '../../utils/context';
+import { logInUser } from '../../api/index.js';
 
 const Login = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { logIn } = useContext(UserContext)
-    const handleSubmit = async (e) => {
-        e.preventDefault()
 
-        try {
-            const promise = await fetch('http://localhost:4000/users');
-            const users = await promise.json();
-            const user = users.find(user => user.email === email);
-          
+    const { logIn } = useContext(UserContext);
 
-            if (user && user.password === password) {
-                console.log(user);
-                logIn(user);
-                document.cookie = `Authenticated=${user.email}`;
-                props.history.push('/');
-            }
-        }
-        catch (e) {
-            console.log(e)
-        }
+    const handleSubmit = (e) => {
+        logInUser(e, props, email, password, logIn);
     }
-
+    
     return (
 
         <Wrapper>

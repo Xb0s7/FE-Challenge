@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Wrapper from '../../components/wrapper/wrapper';
-
+import { registerUser } from '../../api/index.js'; 
 
 const Register = (props) => {
 
@@ -15,38 +15,10 @@ const Register = (props) => {
     const [titles] = useState([]);
     
 
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        try {
-            const promise = await fetch('http://localhost:4000/users', {
-                method: 'POST',
-                body: JSON.stringify({
-                    email,
-                    password,
-                    firstName,
-                    lastName,
-                    imgUrl,
-                    preferedPostsCategory,
-                    preferedUsersCategory,
-                    postedIn,
-                    titles
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            const response = await promise.json();
-            console.log(props);
-            if (response.email) {
-                props.history.push('/login');
-            }
-        }
-        catch (e) {
-            console.log(e)
-        }
+    const handleSubmit = (e) => {
+        registerUser(e, props, email, password, firstName, lastName, imgUrl, preferedPostsCategory, preferedUsersCategory, postedIn, titles)
     }
+
     return (
         <Wrapper>
             <div className='d-flex  vh-100 w-100  flex-row align-items-center justify-content-center text-dark'>
